@@ -1,4 +1,4 @@
-import QtQuick 2.0
+ import QtQuick 2.0
 import Felgo 3.0
 
     EntityBase{
@@ -50,6 +50,7 @@ import Felgo 3.0
             fixture.onBeginContact: {
                 var otherEntity = other.getBody().target
                 if(otherEntity.entityType === "player") {
+                    otherEntity.state="walking"
                   console.debug("contact platform begin")
 
                   // increase the number of active contacts the player has
@@ -60,6 +61,7 @@ import Felgo 3.0
             fixture.onEndContact: {
               var otherEntity = other.getBody().target
               if(otherEntity.entityType === "player") {
+                  otherEntity.state="jumping"
                 console.debug("contact platform end")
 
                 // if the player leaves a platform, we decrease its number of active contacts

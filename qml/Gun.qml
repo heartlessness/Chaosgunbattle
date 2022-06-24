@@ -57,7 +57,7 @@ EntityBase {
 
     Image {
         id: bullet1
-        source: "/demo1/assets/bullet.png"
+        source: "../assets/bullet.png"
         anchors.centerIn: parent
         width:20
         height: 10
@@ -65,7 +65,7 @@ EntityBase {
     }
     function apply()
     {
-        var power = 200
+        var power = 150
         var rad = gun.rotation / 180 * Math.PI
 
 
