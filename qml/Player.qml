@@ -129,6 +129,9 @@ EntityBase {
             if(otherEntityType==="border"){
                 player.die()
             }
+            if(otherEntity==="platform"){
+
+            }
 
         }
     }
@@ -164,6 +167,8 @@ EntityBase {
         boxcollider.linearVelocity.y=0
         console.log("die")
     }
+
+
 
     function move(actionName){
         if(actionName==="up"&&player.state==="walking")

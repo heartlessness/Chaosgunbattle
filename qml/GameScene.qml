@@ -46,7 +46,11 @@ Scene {
                     if(entityA.y + entityA.height > entityB.y)
                         contact.enabled = false
                     if(entityA.y + entityA.height < entityB.y)
+                       {
                         entityA.state="walking"
+
+
+                    }
                 }
 //                if(entityB.entityType === "border" && entityA.entityType === "player" && entityA.y + entityA.height < entityB.y)
 //                {
@@ -67,7 +71,9 @@ Scene {
         }
 
 
+
     }
+
     Keys.forwardTo: [gamer1.controller,gamer2.controller]
     Player{
         id:gamer1
@@ -91,19 +97,6 @@ Scene {
 
     }
 
-
-
-
-
-//    Image{
-//        width: 30
-//        height: 30
-//        id:infoText
-//        //anchors.centerIn: parent
-//         x:gameScene.width-30
-//        source: gameScene.state=="gameOver" ? "../assets/button3.png" : "../assets/button1.png"
-//        visible: gameScene.state!=="playing"
-//    }
 
 
 
@@ -159,3 +152,5 @@ Scene {
                 }
             }
 }
+
+

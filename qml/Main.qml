@@ -7,12 +7,12 @@ GameWindow{
     screenWidth: 960
     screenHeight: 640
 
-    MediaPlayer {
-        id: playMusic
-        source: "../assets/bgmusic.mp3"
-        Audio:Audio{}
+//    MediaPlayer {
+//        id: playMusic
+//        source: "../assets/bgmusic.mp3"
+//        Audio:Audio{}
 
-    }
+//    }
     EntityManager {
       id: entityManager
       entityContainer: gameScene
