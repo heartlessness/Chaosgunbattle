@@ -54,7 +54,7 @@ import Felgo 3.0
                   console.debug("contact platform begin")
 
                   // increase the number of active contacts the player has
-                  player.contacts++
+                  //player.contacts++
                 }
             }
 
@@ -65,7 +65,7 @@ import Felgo 3.0
                 console.debug("contact platform end")
 
                 // if the player leaves a platform, we decrease its number of active contacts
-                player.contacts--
+               // player.contacts--
               }
         }
     }

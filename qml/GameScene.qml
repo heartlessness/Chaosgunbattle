@@ -41,23 +41,15 @@ Scene {
                 //this is called before the Box2DWorld handles contact events
                 var entityA = contact.fixtureA.getBody().target
                 var entityB = contact.fixtureB.getBody().target
-                if(entityB.entityType === "platform" && entityA.entityType === "player"
-                        ) {
+                if(entityB.entityType === "platform" && entityA.entityType === "player") {
                     if(entityA.y + entityA.height > entityB.y)
                         contact.enabled = false
                     if(entityA.y + entityA.height < entityB.y)
-                       {
                         entityA.state="walking"
-
-
-                    }
                 }
-//                if(entityB.entityType === "border" && entityA.entityType === "player" && entityA.y + entityA.height < entityB.y)
-//                {
-//                    console.log("die")
 
-//                    entityA.die()
-//                }
+                if(entityA==="Gun"&&entityB==="platform")
+                    contact.enabled=true
             }
         }
         Level{
@@ -96,6 +88,56 @@ Scene {
         }
 
     }
+    Row{
+        id:gamer1Life
+        x:0
+        y:0
+
+            Text {
+                id: name1
+                text: qsTr("Player1")
+            }
+
+
+        Repeater{
+            model:gamer1.life
+            id:repeaterImage1
+            Image{
+                width: 20
+                height: 20
+                id:heart1
+                source: "../assets/vitality.png"
+            }
+        }
+    }
+
+    Row{
+        id:gamer2Life
+        x:0
+        y:20
+
+            Text {
+                id: name2
+                text: qsTr("Player2")
+            }
+
+
+        Repeater{
+            model:gamer2.life
+            id:repeaterImage2
+            Image{
+                width: 20
+                height: 20
+                id:heart2
+                source: "../assets/vitality.png"
+            }
+        }
+    }
+
+
+
+
+
 
 
 
@@ -105,7 +147,7 @@ Scene {
                 flat:true
                 width: 30
                 height: 30
-                x:0
+                x:gameScene.width-90
                 Image{
                     anchors.fill: parent
 
@@ -114,6 +156,7 @@ Scene {
                 onClicked: {
                     menuScenePressed()
                     gameScene.state = "start"
+                    gameMusic.stop()
                     console.log("click menu")
 
                 }
@@ -132,6 +175,8 @@ Scene {
                 }
                 onClicked: {
                     physicsWorld.running=false
+                     gameMusic.pause()
+                    menuScene.playMenuMusic()
                     continueGame.visible=true
                 }
             }
@@ -148,9 +193,44 @@ Scene {
                 }
                 onClicked: {
                     physicsWorld.running=true
+                    menuScene.pauseMenuMusic()
+
+                    gameMusic.play()
                     visible=false
                 }
             }
+
+            Button{
+                id:againButton
+                width: 30
+                height: 30
+                flat:true
+                x:gameScene.width-60
+                Image{
+                    anchors.fill: parent
+                    source: "../assets/again.png"
+                }
+                onClicked: {
+                    gamer2.x=100
+                    gamer2.y=15
+                    gamer1.x=300
+                    gamer1.y=40
+                }
+            }
+
+            MediaPlayer{
+                loops:SoundEffect.Infinite
+                volume: 0.35
+                id:gameMusic
+                source: "../assets/bgmusic.mp3"
+                autoPlay: false
+            }
+
+            function playGameMusic(){
+                gameMusic.play()
+            }
+
+
 }
 
 

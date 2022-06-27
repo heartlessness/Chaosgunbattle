@@ -68,6 +68,7 @@ DISTFILES += \
     qml/Gun.qml \
     qml/Level.qml \
     qml/MenuScene.qml \
+    qml/Pause.qml \
     qml/Platform.qml \
     qml/Player.qml \
     qml/Tile.qml

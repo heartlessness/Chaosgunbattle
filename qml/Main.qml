@@ -7,12 +7,7 @@ GameWindow{
     screenWidth: 960
     screenHeight: 640
 
-//    MediaPlayer {
-//        id: playMusic
-//        source: "../assets/bgmusic.mp3"
-//        Audio:Audio{}
 
-//    }
     EntityManager {
       id: entityManager
       entityContainer: gameScene
@@ -20,18 +15,22 @@ GameWindow{
     GameScene{
         id:gameScene
         onMenuScenePressed: {
+            menuScene.playMenuMusic()
             gameWindow.state="menu"
             gameScene.visible=false
             menuScene.visible=true
+
         }
 
     }
     MenuScene{
         id:menuScene
         onGameScenePressed: {
+            gameScene.playGameMusic()
             gameWindow.state="game"
             menuScene.visible=false
             gameScene.visible=true
+
         }
     }
 

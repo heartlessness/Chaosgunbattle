@@ -19,6 +19,8 @@ EntityBase {
         id:boxcollider
         width: 10
         height: 20
+        gravityScale: 0
+
 
         anchors.centerIn:parent
 
@@ -37,8 +39,10 @@ EntityBase {
             if(colliderType==="player" ||colliderType==="Gun"||colliderType==="platform")
             {
                 gun.removeEntity()
-                return
+
             }
+
+
 
 
 
