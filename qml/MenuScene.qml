@@ -48,46 +48,52 @@ Scene {
 
     }
 
-//    GridView{
-//        id:grid
-//        anchors.fill: parent
-//        cellHeight: 200
-//        cellWidth: 200
-//        anchors.margins: 20
-//        model:ListModel{
-//            id:model
+    GridView{
+        id:grid
+        anchors.fill: parent
+        cellHeight: 200
+        cellWidth: 200
+        anchors.margins: 20
+        model:ListModel{
+            id:model
 
-//            ListElement{
-//                src:"../assets/allbackgreen.png"
-//                width1:200
-//                height1:200
-//            }
-//            ListElement{
-//                src:"../assets/allback.png"
-//                width1:200
-//                height1:200
-//            }
-//            ListElement{
-//                src:"../assets/mpbg.png"
-//                width1:200
-//                height1:200
-//            }
-//        }
-//        delegate: Item{
-//            id:rec
-//            width: grid.cellWidth
-//            height: grid.cellHeight
+            ListElement{
+                src:"../assets/allbackgreen.png"
+                width1:200
+                height1:200
+            }
+            ListElement{
+                src:"../assets/allback.png"
+                width1:200
+                height1:200
+            }
+            ListElement{
+                src:"../assets/mpbg.png"
+                width1:200
+                height1:200
+            }
+        }
+        delegate: Button{
+            id:rec
+            width: grid.cellWidth
+            height: grid.cellHeight
 
-//            Image{
-//                id:image1
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                anchors.verticalCenter: parent.verticalCenter
-//                source:model
-//                width: grid.cellWidth*0.9
-//                height: grid.cellHeight*0.9
-//            }
-//        }
-//    }
+            Image{
+                id:image1
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                source:model.src
+                width: grid.cellWidth*0.9
+                height: grid.cellHeight*0.9
+            }
+            onClicked: {
+                gameScene.setBackImage(src)
+                gameScenePressed()
+                menuMusic.stop()
+            }
+
+        }
+    }
 
     function playMenuMusic(){
         menuMusic.play()

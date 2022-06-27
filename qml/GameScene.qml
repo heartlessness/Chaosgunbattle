@@ -13,11 +13,16 @@ Scene {
     state:"start"
     property alias gameSceneOpen:gameScene
 
+    function setBackImage(a){
+        para.sourceImage=a
+    }
+
 
 
 
     ParallaxScrollingBackground {
-        sourceImage: "../assets/allbackgreen.png"
+        id:para
+        //sourceImage: "../assets/allbackgreen.png"
         //anchors.fill: parent
         anchors.bottom: gameScene.gameWindowAnchorItem.bottom
         anchors.horizontalCenter: gameScene.gameWindowAnchorItem.horizontalCenter
