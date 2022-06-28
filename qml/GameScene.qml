@@ -76,12 +76,14 @@ Scene {
         id:gamer1
         x:10
         y:10
+        number:1
     }
 
     Player{
         id:gamer2
         x:100
         y:100
+        number: 2
 
         inputActionsToKeyCode: {
             "up": Qt.Key_W,
@@ -100,6 +102,8 @@ Scene {
 
             Text {
                 id: name1
+                font.family: "../assets/Marker Felt.ttf"
+                font.pointSize: 10
                 text: qsTr("Player1")
             }
 
@@ -123,6 +127,8 @@ Scene {
 
             Text {
                 id: name2
+                font.family: "../assets/Marker Felt.ttf"
+                font.pointSize: 10
                 text: qsTr("Player2")
             }
 

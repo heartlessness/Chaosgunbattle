@@ -7,6 +7,8 @@ EntityBase {
     width: 30
     height: 30
 
+    property int number: 0
+
     property Gun bullet
     property alias controller: control
     property alias inputActionsToKeyCode: control.inputActionsToKeyCode
@@ -108,6 +110,9 @@ EntityBase {
                 playeranimation.jumpTo("leftwalking")
             if(i===2)
                 playeranimation.jumpTo("rightwalking")
+
+            gunImage.rotation=30
+            boxcollider.collidesWith=Box.Category1|Box.Category2
         }
 
 
@@ -126,6 +131,39 @@ onTriggered: {
     }
 }
 }
+    Rectangle{
+        id:playerNumber
+        x:-10
+        y:-20
+
+        border.color: "transparent"
+        Text {
+            id: name
+            font.family: "../assets/Marker Felt.ttf"
+            font.pointSize: 10
+            text: qsTr("player"+player.number)
+        }
+    }
+    Rectangle{
+        id:gunRec
+        width: 15
+        height: 15
+        x:boxcollider.x-10
+        y:boxcollider.y+10
+        border.color: "transparent"
+        color: "transparent"
+
+
+        Image{
+            id:gunImage
+            anchors.fill: parent
+            rotation: -60
+
+
+            source: "../assets/handgun2.png"
+        }
+    }
+
 
 
     BoxCollider{
@@ -133,6 +171,9 @@ onTriggered: {
 
         force: Qt.point(control.xAxis*100*16, 0)
         //torque: control.yAxis*20
+
+        categories:Box.Category3
+        collidesWith: Box.Category1|Box.Category2
 
         fixedRotation:true
 
@@ -163,6 +204,7 @@ onTriggered: {
             }
 
         }
+
     }
 
     MediaPlayer{
@@ -181,11 +223,12 @@ onTriggered: {
         if(action==="fire")
         {
             gunMusic.play()
+            gunImage.rotation=0
 
 
             if(signal==1)
            {
-                var imagePointInWorldCoordinates = mapToItem(level,playeranimation.imagePoints[0].x-65, playeranimation.imagePoints[0].y+15)
+                var imagePointInWorldCoordinates = mapToItem(level,playeranimation.imagePoints[0].x-65, playeranimation.imagePoints[0].y+11)
 
              entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y,"rotation": boxcollider.rotation})
             console.log("fired")
@@ -193,13 +236,14 @@ onTriggered: {
 
             if(signal==2)
             {
-                var imagePointInWorldCoordinates1 = mapToItem(level,playeranimation.imagePoints[0].x-5, playeranimation.imagePoints[0].y+15)
+                var imagePointInWorldCoordinates1 = mapToItem(level,playeranimation.imagePoints[0].x-5, playeranimation.imagePoints[0].y+11)
 
              entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates1.x, "y": imagePointInWorldCoordinates1.y,"rotation": boxcollider.rotation})
             console.log("fired")
             }
 
         }
+
     }
 
     function die(){
@@ -236,6 +280,13 @@ onTriggered: {
 
             signal=1
             boxcollider.rotation=180
+
+            gunImage.source="../assets/handgun2.png"
+            gunRec.x=boxcollider.x-10
+            gunRec.y=boxcollider.y+10
+            gunImage.rotation=0
+            //gunImage.rotation=180
+
         }
 
         if(actionName==="right")
@@ -243,12 +294,17 @@ onTriggered: {
             playeranimation.jumpTo("rightwalking")
             signal=2
             boxcollider.rotation=0
+            gunRec.x=boxcollider.x+20
+            gunRec.y=boxcollider.y+8
+            gunImage.rotation=30
+            gunImage.source="../assets/handgun.png"
+           // gunImage.rotation=180
         }
 
         if(actionName==="down")
         {
 
-            player.y+=30
+            boxcollider.collidesWith=Box.Category1
         }
         return signal
     }

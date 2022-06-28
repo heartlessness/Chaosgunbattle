@@ -64,6 +64,7 @@ RESOURCES +=
 DISTFILES += \
     qml/BackGround.qml \
     qml/Border.qml \
+    qml/ChoosePlayer.qml \
     qml/GameScene.qml \
     qml/Gun.qml \
     qml/Level.qml \

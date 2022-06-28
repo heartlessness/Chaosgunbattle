@@ -21,6 +21,10 @@ EntityBase {
         height: 20
         gravityScale: 0
 
+        categories:Box.Category1
+        collidesWith: Box.Category3
+
+
 
         anchors.centerIn:parent
 

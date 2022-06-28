@@ -1,4 +1,4 @@
-import QtQuick 2.0
+ import QtQuick 2.0
 import Felgo 3.0
 import QtQuick.Controls 2.0
 import QtMultimedia 5.9
@@ -6,6 +6,11 @@ Scene {
     id:menuScene
 
     signal gameScenePressed
+
+    signal gameScenePressed1
+
+    property var imageList:["../assets/allbackgreen.png","../assets/allback.png","../assets/mpbg.png"]
+    property int index: 0
 
     Image{
 
@@ -16,27 +21,47 @@ Scene {
         x:gameScene.width
         y:0
 
-        source: "../assets /logo.jpeg"
+        source: "../assets/logo.jpeg"
     }
 
 
 
 
-    Button{
-        width: 70
-        height: 50
-        anchors.centerIn: parent
-        Image {
-            id: playButton
+//    Button{
+//        width: 70
+//        height: 50
+//        anchors.centerIn: parent
+//        Image {
+//            id: playButton
 
-            source: "../assets/on.jpg"
-            anchors.fill:parent
+//            source: "../assets/on.jpg"
+//            anchors.fill:parent
+//        }
+//        onClicked: {
+//            gameScenePressed()
+//            menuMusic.stop()
+//        }
+//    }
+
+    Button {
+            width: 70
+            height: 50
+            x:50
+            y:200
+            flat:true
+    //        Text {
+    //            id: choose
+    //            text: qsTr("Choose")
+    //        }
+            Image {
+                id: chooseplayer
+                source: "../assets/warlord-helmet.png"
+                anchors.fill: parent
+            }
+            onClicked: {
+               gameScenePressed1()
+            }
         }
-        onClicked: {
-            gameScenePressed()
-            menuMusic.stop()
-        }
-    }
 
     MediaPlayer{
         loops: SoundEffect.Infinite
@@ -48,52 +73,78 @@ Scene {
 
     }
 
-    GridView{
-        id:grid
-        anchors.fill: parent
-        cellHeight: 200
-        cellWidth: 200
-        anchors.margins: 20
-        model:ListModel{
-            id:model
-
-            ListElement{
-                src:"../assets/allbackgreen.png"
-                width1:200
-                height1:200
-            }
-            ListElement{
-                src:"../assets/allback.png"
-                width1:200
-                height1:200
-            }
-            ListElement{
-                src:"../assets/mpbg.png"
-                width1:200
-                height1:200
-            }
-        }
-        delegate: Button{
-            id:rec
-            width: grid.cellWidth
-            height: grid.cellHeight
-
+    Rectangle{
+        id:rec
+        anchors.centerIn: parent
+        Button{
+            id:selectImage
+            width: 200
+            height: 200
+            anchors.centerIn: parent
             Image{
                 id:image1
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                source:model.src
-                width: grid.cellWidth*0.9
-                height: grid.cellHeight*0.9
+                                anchors.verticalCenter: parent.verticalCenter
+                                source:imageList[index]
+                                width: 180
+                                height: 180
             }
             onClicked: {
-                gameScene.setBackImage(src)
-                gameScenePressed()
-                menuMusic.stop()
+                            gameScene.setBackImage(image1.source)
+
+                            gameScenePressed()
+                gameScenePressed1()
+                            menuMusic.stop()
+                        }
+        }
+
+        Button{
+            id:leftSelect
+            width: 30
+            height: 30
+            y:0
+            flat:false
+            icon.source: "../assets/leftSelect.png"
+            icon.color: "transparent"
+            icon.width: parent.width
+            icon.height: parent.height
+            anchors.right: selectImage.left
+    //        Image {
+    //            id: leftsSlectImage
+    //            source: "../assets/leftSelect.png"
+    //            anchors.fill: parent
+    //        }
+
+            onClicked: {
+
+                index===0? index=2:index--
+                image1.source=imageList[index]
+            }
+        }
+
+        Button{
+            id:rightSelect
+            width: 30
+            height: 30
+            y:0
+            flat:false
+            anchors.left: selectImage.right
+            Image{
+                id:rightSelectImage
+                source: "../assets/rightSelect.png"
+                anchors.fill: parent
             }
 
+            onClicked: {
+
+                index===2? index=0:index++
+                image1.source=imageList[index]
+            }
         }
     }
+
+
+
 
     function playMenuMusic(){
         menuMusic.play()

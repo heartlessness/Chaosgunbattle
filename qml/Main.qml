@@ -8,6 +8,8 @@ GameWindow{
     screenHeight: 640
 
 
+
+
     EntityManager {
       id: entityManager
       entityContainer: gameScene
@@ -23,6 +25,28 @@ GameWindow{
         }
 
     }
+
+    ChoosePlayer{
+        id:chooseScene
+
+        onGameScenePressed2: {
+            gameScene.playGameMusic()
+            gameWindow.state="game"
+            menuScene.visible=false
+            gameScene.visible=true
+
+            chooseScene.visible=false
+        }
+        onGameScenePressed1: {
+            menuScene.playMenuMusic()
+            gameWindow.state="menu"
+            gameScene.visible=false
+            menuScene.visible=true
+
+           chooseScene.visible=false
+        }
+    }
+
     MenuScene{
         id:menuScene
         onGameScenePressed: {
@@ -30,7 +54,15 @@ GameWindow{
             gameWindow.state="game"
             menuScene.visible=false
             gameScene.visible=true
+            chooseScene.visible=false
 
+        }
+
+        onGameScenePressed1:{
+            gameWindow.state="choose"
+            gameScene.visible=false
+            menuScene.visible=false
+            chooseScene.visible=true
         }
     }
 
@@ -52,6 +84,17 @@ GameWindow{
             }
             PropertyChanges {
                 target: gameWindow;activeScene:gameScene
+            }
+        },
+        State {
+            name: "choose"
+            PropertyChanges {
+                target:gameWindow;opacity:1
+
+            }
+            PropertyChanges {
+                target: gameWindow;activeScene:chooseScene
+
             }
         }
 
