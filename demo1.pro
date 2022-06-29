@@ -72,4 +72,5 @@ DISTFILES += \
     qml/Pause.qml \
     qml/Platform.qml \
     qml/Player.qml \
+    qml/RandGun.qml \
     qml/Tile.qml

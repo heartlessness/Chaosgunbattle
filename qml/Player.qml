@@ -7,6 +7,8 @@ EntityBase {
     width: 30
     height: 30
 
+    state: "left"
+
     property int number: 0
 
     property Gun bullet
@@ -14,6 +16,9 @@ EntityBase {
     property alias inputActionsToKeyCode: control.inputActionsToKeyCode
 
     property alias boxcollider: boxcollider
+
+    property alias sequence: playeranimation
+
     property int life: 5
 
     //readonly property real forwardForce: 800 * physicsWorld.pixelsPerMeter
@@ -21,6 +26,9 @@ EntityBase {
     property alias horizontalVelocity: boxcollider.linearVelocity.x
 
     property int signal: 0
+
+    property var str1: "../assets/handgun2.png"
+    property var str2: "../assets/handgun.png"
 
     SpriteSequence{
         id:playeranimation
@@ -30,19 +38,19 @@ EntityBase {
 
         property list<Item> imagePoints: [
 
-          Item {x: playeranimation.width/2+30}
+            Item {x: playeranimation.width/2+30}
         ]
 
 
 
         Sprite{
-           name:"leftwalking"
-           frameRate: 4
-           frameCount: 1
-           frameHeight: 67
-           frameWidth: 64
-           frameX: 0
-           frameY:0
+            name:"leftwalking"
+            frameRate: 4
+            frameCount: 1
+            frameHeight: 67
+            frameWidth: 64
+            frameX: 0
+            frameY:0
 
 
         }
@@ -107,11 +115,18 @@ EntityBase {
 
         Keys.onReleased: {
             if(i===1)
+            {
                 playeranimation.jumpTo("leftwalking")
+                gunImage.rotation=-60
+            }
             if(i===2)
-                playeranimation.jumpTo("rightwalking")
+            {
 
-            gunImage.rotation=30
+                playeranimation.jumpTo("rightwalking")
+                gunImage.rotation=30
+
+            }
+
             boxcollider.collidesWith=Box.Category1|Box.Category2
         }
 
@@ -119,18 +134,18 @@ EntityBase {
     }
 
     Timer{
-interval: 60
-running: true
-repeat: true
-onTriggered: {
-    var xAxis = controller.xAxis;
-    // if xAxis is 0 (no movement command) we slow the player down until he stops
-    if(xAxis === 0) {
-      if(Math.abs(player.horizontalVelocity) > 10) player.horizontalVelocity /= 1.5
-      else player.horizontalVelocity = 0
+        interval: 60
+        running: true
+        repeat: true
+        onTriggered: {
+            var xAxis = controller.xAxis;
+            // if xAxis is 0 (no movement command) we slow the player down until he stops
+            if(xAxis === 0) {
+                if(Math.abs(player.horizontalVelocity) > 10) player.horizontalVelocity /= 1.5
+                else player.horizontalVelocity = 0
+            }
+        }
     }
-}
-}
     Rectangle{
         id:playerNumber
         x:-10
@@ -148,8 +163,8 @@ onTriggered: {
         id:gunRec
         width: 15
         height: 15
-        x:boxcollider.x-10
-        y:boxcollider.y+10
+        x:boxcollider.x-15
+        y:boxcollider.y+8
         border.color: "transparent"
         color: "transparent"
 
@@ -186,8 +201,8 @@ onTriggered: {
         gravityScale: 1.1
 
         onLinearVelocityChanged: {
-          if(linearVelocity.x > 170) linearVelocity.x = 170
-          if(linearVelocity.x < -170) linearVelocity.x = -170
+            if(linearVelocity.x > 170) linearVelocity.x = 170
+            if(linearVelocity.x < -170) linearVelocity.x = -170
         }
 
 
@@ -202,6 +217,9 @@ onTriggered: {
 
 
             }
+
+            if(otherEntityType==="randGun")
+                setRandGunImage("../assets/M4A1(left).png","../assets/M4A1.png")
 
         }
 
@@ -227,19 +245,19 @@ onTriggered: {
 
 
             if(signal==1)
-           {
+            {
                 var imagePointInWorldCoordinates = mapToItem(level,playeranimation.imagePoints[0].x-65, playeranimation.imagePoints[0].y+11)
 
-             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y,"rotation": boxcollider.rotation})
-            console.log("fired")
-                }
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y,"rotation": boxcollider.rotation})
+                console.log("fired")
+            }
 
             if(signal==2)
             {
                 var imagePointInWorldCoordinates1 = mapToItem(level,playeranimation.imagePoints[0].x-5, playeranimation.imagePoints[0].y+11)
 
-             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates1.x, "y": imagePointInWorldCoordinates1.y,"rotation": boxcollider.rotation})
-            console.log("fired")
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates1.x, "y": imagePointInWorldCoordinates1.y,"rotation": boxcollider.rotation})
+                console.log("fired")
             }
 
         }
@@ -281,10 +299,10 @@ onTriggered: {
             signal=1
             boxcollider.rotation=180
 
-            gunImage.source="../assets/handgun2.png"
-            gunRec.x=boxcollider.x-10
+            gunImage.source=player.str1
+            gunRec.x=boxcollider.x-15
             gunRec.y=boxcollider.y+10
-            gunImage.rotation=0
+            gunImage.rotation=-60
             //gunImage.rotation=180
 
         }
@@ -297,8 +315,8 @@ onTriggered: {
             gunRec.x=boxcollider.x+20
             gunRec.y=boxcollider.y+8
             gunImage.rotation=30
-            gunImage.source="../assets/handgun.png"
-           // gunImage.rotation=180
+            gunImage.source=player.str2
+            // gunImage.rotation=180
         }
 
         if(actionName==="down")
@@ -307,6 +325,15 @@ onTriggered: {
             boxcollider.collidesWith=Box.Category1
         }
         return signal
+    }
+
+    function setRandGunImage(str1,str2){
+        player.str1=str1
+        player.str2=str2
+        gunRec.width=30
+        gunRec.height=20
+
+
     }
 
 }

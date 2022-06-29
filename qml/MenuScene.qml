@@ -43,25 +43,6 @@ Scene {
 //        }
 //    }
 
-    Button {
-            width: 70
-            height: 50
-            x:50
-            y:200
-            flat:true
-    //        Text {
-    //            id: choose
-    //            text: qsTr("Choose")
-    //        }
-            Image {
-                id: chooseplayer
-                source: "../assets/warlord-helmet.png"
-                anchors.fill: parent
-            }
-            onClicked: {
-               gameScenePressed1()
-            }
-        }
 
     MediaPlayer{
         loops: SoundEffect.Infinite
@@ -92,7 +73,7 @@ Scene {
             onClicked: {
                             gameScene.setBackImage(image1.source)
 
-                            gameScenePressed()
+//                            gameScenePressed()
                 gameScenePressed1()
                             menuMusic.stop()
                         }

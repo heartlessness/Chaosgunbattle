@@ -50,4 +50,10 @@ import Felgo 3.0
        size: 4
      }
 
+     function platformPoint(a){
+         var list = level.children
+
+         return mapToItem(level,list[a].x,list[a].y)
+     }
+
 }

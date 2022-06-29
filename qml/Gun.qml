@@ -7,6 +7,7 @@ EntityBase {
 
 
     property real angleDeg
+    property RandGun rand
 
     rotation: angleDeg
 
@@ -45,6 +46,7 @@ EntityBase {
                 gun.removeEntity()
 
             }
+
 
 
 

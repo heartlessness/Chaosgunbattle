@@ -10,8 +10,13 @@ Scene {
     focus: true
     property int offsetBeforeScrollingStarts: 240
     signal menuScenePressed
+    signal pickUpGun
+
     state:"start"
     property alias gameSceneOpen:gameScene
+
+    property alias player1: gamer1
+    property alias player2: gamer2
 
     function setBackImage(a){
         para.sourceImage=a
@@ -53,8 +58,11 @@ Scene {
                         entityA.state="walking"
                 }
 
-                if(entityA==="Gun"&&entityB==="platform")
-                    contact.enabled=true
+                if(entityA.entityType==="randGun"&&entityB.entityType==="player")
+                    pickUpGun()
+
+//                if(entityA==="Gun"&&entityB==="platform")
+//                    contact.enabled=true
             }
         }
         Level{
@@ -77,6 +85,8 @@ Scene {
         x:10
         y:10
         number:1
+
+
     }
 
     Player{
@@ -237,8 +247,34 @@ Scene {
                 autoPlay: false
             }
 
+            Image{
+                id:gunImage
+                source: setGun()
+            }
+
+            Timer{
+                id:timer
+                interval: 15000
+                running: true
+                repeat: true
+                onTriggered: {
+                    var a = Math.floor(Math.random()*9)
+
+                    var randGunPoint =level.platformPoint(a)
+                    var e =entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("RandGun.qml"),{"x":randGunPoint.x+50,"y":randGunPoint.y,"roration":0})
+                    console.log("randGun is set")
+
+
+                }
+            }
+
             function playGameMusic(){
                 gameMusic.play()
+            }
+
+            function setGunImage(){
+
+
             }
 
 

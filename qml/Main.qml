@@ -24,6 +24,7 @@ GameWindow{
 
         }
 
+
     }
 
     ChoosePlayer{
@@ -49,14 +50,14 @@ GameWindow{
 
     MenuScene{
         id:menuScene
-        onGameScenePressed: {
-            gameScene.playGameMusic()
-            gameWindow.state="game"
-            menuScene.visible=false
-            gameScene.visible=true
-            chooseScene.visible=false
+//        onGameScenePressed: {
+//            gameScene.playGameMusic()
+//            gameWindow.state="game"
+//            menuScene.visible=false
+//            gameScene.visible=true
+//            chooseScene.visible=false
 
-        }
+//        }
 
         onGameScenePressed1:{
             gameWindow.state="choose"
