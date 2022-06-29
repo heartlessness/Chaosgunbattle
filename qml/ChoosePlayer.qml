@@ -10,61 +10,61 @@ Scene {
     signal gameScenePressed2
 
 
-    Image {
-        width: gameScene.width
-        height: gameScene.height
-        id: background
-        source: "../assets/allbackgreen.png"
-    }
+//    Image {
+//        width: gameScene.width
+//        height: gameScene.height
+//        id: background
+//        source: "../assets/allbackgreen.png"
+//    }
 
-    Button{
-        x:0
-        y:20
-        id:back
-        width: 20
-        height: 20
-        flat:true
+//    Button{
+//        x:0
+//        y:20
+//        id:back
+//        width: 20
+//        height: 20
+//        flat:true
 
-        Image {
-            anchors.fill:parent
+//        Image {
+//            anchors.fill:parent
 
-            id: backoff
-            source: "../assets/again2.png"
+//            id: backoff
+//            source: "../assets/again2.png"
 
-        }
+//        }
 
-        onClicked: {
-            gameScenePressed1()
-        }
-    }
+//        onClicked: {
+//            gameScenePressed1()
+//        }
+//    }
 
-    Button{
-        id:con
+//    Button{
+//        id:con
 
 
-        flat:true
-        x:420
-        y:20
+//        flat:true
+//        x:420
+//        y:20
 
-        width: 20
-        height: 20
+//        width: 20
+//        height: 20
 
-        Image {
-            anchors.fill: parent
-            id: jixu
-            source: "../assets/continue.png"
-        }
+//        Image {
+//            anchors.fill: parent
+//            id: jixu
+//            source: "../assets/continue.png"
+//        }
 
-        onClicked: {
-            gameScenePressed2()
-        }
-    }
+//        onClicked: {
+//            gameScenePressed2()
+//        }
+//    }
 
     Image{
         id:choose1
 
-        x:90
-        y:180
+        x:-100
+        y:-50
 
         width: 30
         height: 50
@@ -72,11 +72,13 @@ Scene {
 
     GridView{
 
-        x:50
-        y:270
+//        x:50
+//        y:270
+        x:-125
+        y:35
 
-        height: 40
-        width: 200
+        height: 30
+        width: 120
         cellHeight: 40
         cellWidth:40
 
@@ -134,8 +136,8 @@ Scene {
 }
     Image {
         id: choose2
-        x:330
-        y:190
+        x:80
+        y:-50
 
         width: 30
         height: 50
@@ -143,8 +145,10 @@ Scene {
     }
     GridView{
 
-        x:300
-        y:270
+//        x:300
+//        y:270
+        x:5
+        y:35
 
         height: 40
         width: 200

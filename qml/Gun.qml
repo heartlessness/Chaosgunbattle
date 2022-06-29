@@ -9,6 +9,8 @@ EntityBase {
     property real angleDeg
     property RandGun rand
 
+    property int power: 150
+
     rotation: angleDeg
 
     Component.onCompleted: {
@@ -75,11 +77,11 @@ EntityBase {
     }
     function apply()
     {
-        var power = 150
+
         var rad = gun.rotation / 180 * Math.PI
 
 
-        var localForward = Qt.point(power * Math.cos(rad), power * Math.sin(rad))
+        var localForward = Qt.point(gun.power * Math.cos(rad), gun.power * Math.sin(rad))
         boxcollider.body.applyLinearImpulse(localForward, boxcollider.body.getWorldCenter())
     }
 }

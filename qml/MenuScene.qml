@@ -1,4 +1,4 @@
- import QtQuick 2.0
+import QtQuick 2.0
 import Felgo 3.0
 import QtQuick.Controls 2.0
 import QtMultimedia 5.9
@@ -27,21 +27,21 @@ Scene {
 
 
 
-//    Button{
-//        width: 70
-//        height: 50
-//        anchors.centerIn: parent
-//        Image {
-//            id: playButton
+    //    Button{
+    //        width: 70
+    //        height: 50
+    //        anchors.centerIn: parent
+    //        Image {
+    //            id: playButton
 
-//            source: "../assets/on.jpg"
-//            anchors.fill:parent
-//        }
-//        onClicked: {
-//            gameScenePressed()
-//            menuMusic.stop()
-//        }
-//    }
+    //            source: "../assets/on.jpg"
+    //            anchors.fill:parent
+    //        }
+    //        onClicked: {
+    //            gameScenePressed()
+    //            menuMusic.stop()
+    //        }
+    //    }
 
 
     MediaPlayer{
@@ -57,6 +57,7 @@ Scene {
     Rectangle{
         id:rec
         anchors.centerIn: parent
+        //anchors.top: parent.top+50
         Button{
             id:selectImage
             width: 200
@@ -65,18 +66,19 @@ Scene {
             Image{
                 id:image1
                 anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.verticalCenter: parent.verticalCenter
-                                source:imageList[index]
-                                width: 180
-                                height: 180
+                anchors.verticalCenter: parent.verticalCenter
+//                anchors.top: parent.top
+                source:imageList[index]
+                width: 180
+                height: 180
             }
             onClicked: {
-                            gameScene.setBackImage(image1.source)
+                gameScene.setBackImage(image1.source)
 
-//                            gameScenePressed()
-                gameScenePressed1()
-                            menuMusic.stop()
-                        }
+                                            gameScenePressed()
+//                gameScenePressed1()
+                menuMusic.stop()
+            }
         }
 
         Button{
@@ -90,11 +92,11 @@ Scene {
             icon.width: parent.width
             icon.height: parent.height
             anchors.right: selectImage.left
-    //        Image {
-    //            id: leftsSlectImage
-    //            source: "../assets/leftSelect.png"
-    //            anchors.fill: parent
-    //        }
+            //        Image {
+            //            id: leftsSlectImage
+            //            source: "../assets/leftSelect.png"
+            //            anchors.fill: parent
+            //        }
 
             onClicked: {
 
@@ -122,7 +124,30 @@ Scene {
                 image1.source=imageList[index]
             }
         }
+        ChoosePlayer{
+            id:chooseScene
+            anchors.top: parent.bottom
+
+    //        onGameScenePressed2: {
+    //            gameScene.playGameMusic()
+    //            gameWindow.state="game"
+    //            menuScene.visible=false
+    //            gameScene.visible=true
+
+    //            chooseScene.visible=false
+    //        }
+    //        onGameScenePressed1: {
+    //            menuScene.playMenuMusic()
+    //            gameWindow.state="menu"
+    //            gameScene.visible=false
+    //            menuScene.visible=true
+
+    //           chooseScene.visible=false
+    //        }
+        }
     }
+
+
 
 
 

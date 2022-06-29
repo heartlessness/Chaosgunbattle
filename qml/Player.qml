@@ -29,6 +29,9 @@ EntityBase {
 
     property var str1: "../assets/handgun2.png"
     property var str2: "../assets/handgun.png"
+    property var gunKinds: "handgun"
+    property int gunPower: 150
+
 
     SpriteSequence{
         id:playeranimation
@@ -117,7 +120,7 @@ EntityBase {
             if(i===1)
             {
                 playeranimation.jumpTo("leftwalking")
-                gunImage.rotation=-60
+                gunImage.rotation=-30
             }
             if(i===2)
             {
@@ -163,8 +166,8 @@ EntityBase {
         id:gunRec
         width: 15
         height: 15
-        x:boxcollider.x-15
-        y:boxcollider.y+8
+        x:boxcollider.x-10
+        y:boxcollider.y+10
         border.color: "transparent"
         color: "transparent"
 
@@ -172,7 +175,7 @@ EntityBase {
         Image{
             id:gunImage
             anchors.fill: parent
-            rotation: -60
+            rotation: -30
 
 
             source: "../assets/handgun2.png"
@@ -248,7 +251,7 @@ EntityBase {
             {
                 var imagePointInWorldCoordinates = mapToItem(level,playeranimation.imagePoints[0].x-65, playeranimation.imagePoints[0].y+11)
 
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y,"rotation": boxcollider.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y,"rotation": boxcollider.rotation,"power":player.gunPower})
                 console.log("fired")
             }
 
@@ -256,7 +259,7 @@ EntityBase {
             {
                 var imagePointInWorldCoordinates1 = mapToItem(level,playeranimation.imagePoints[0].x-5, playeranimation.imagePoints[0].y+11)
 
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates1.x, "y": imagePointInWorldCoordinates1.y,"rotation": boxcollider.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Gun.qml"), {"x":imagePointInWorldCoordinates1.x, "y": imagePointInWorldCoordinates1.y,"rotation": boxcollider.rotation,"power":player.gunPower})
                 console.log("fired")
             }
 
@@ -298,11 +301,18 @@ EntityBase {
 
             signal=1
             boxcollider.rotation=180
+            if(player.gunKinds==="handgun"){
+                gunRec.x=boxcollider.x-10
+                gunRec.y=boxcollider.y+10
+            }
+            if(player.gunKinds==="M4A1"){
+                gunRec.x=boxcollider.x-18
+                gunRec.y=boxcollider.y+2
+            }
 
             gunImage.source=player.str1
-            gunRec.x=boxcollider.x-15
-            gunRec.y=boxcollider.y+10
-            gunImage.rotation=-60
+
+            gunImage.rotation=-30
             //gunImage.rotation=180
 
         }
@@ -312,11 +322,18 @@ EntityBase {
             playeranimation.jumpTo("rightwalking")
             signal=2
             boxcollider.rotation=0
-            gunRec.x=boxcollider.x+20
-            gunRec.y=boxcollider.y+8
+            if(player.gunKinds==="handgun"){
+                gunRec.x=boxcollider.x+15
+                gunRec.y=boxcollider.y+8
+            }
+            if(player.gunKinds==="M4A1"){
+                gunRec.x=boxcollider.x+8
+                gunRec.y=boxcollider.y+2
+            }
+
+
             gunImage.rotation=30
             gunImage.source=player.str2
-            // gunImage.rotation=180
         }
 
         if(actionName==="down")
@@ -330,6 +347,8 @@ EntityBase {
     function setRandGunImage(str1,str2){
         player.str1=str1
         player.str2=str2
+        player.gunKinds="M4A1"
+        player.gunPower=300
         gunRec.width=30
         gunRec.height=20
 

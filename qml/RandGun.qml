@@ -31,7 +31,6 @@ EntityBase {
             {
 
                 randGun.removeEntity()
-                randGun.bullerPower=200
             }
 
         }

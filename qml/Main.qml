@@ -27,44 +27,44 @@ GameWindow{
 
     }
 
-    ChoosePlayer{
-        id:chooseScene
+//    ChoosePlayer{
+//        id:chooseScene
 
-        onGameScenePressed2: {
-            gameScene.playGameMusic()
-            gameWindow.state="game"
-            menuScene.visible=false
-            gameScene.visible=true
-
-            chooseScene.visible=false
-        }
-        onGameScenePressed1: {
-            menuScene.playMenuMusic()
-            gameWindow.state="menu"
-            gameScene.visible=false
-            menuScene.visible=true
-
-           chooseScene.visible=false
-        }
-    }
-
-    MenuScene{
-        id:menuScene
-//        onGameScenePressed: {
+//        onGameScenePressed2: {
 //            gameScene.playGameMusic()
 //            gameWindow.state="game"
 //            menuScene.visible=false
 //            gameScene.visible=true
+
 //            chooseScene.visible=false
-
 //        }
+//        onGameScenePressed1: {
+//            menuScene.playMenuMusic()
+//            gameWindow.state="menu"
+//            gameScene.visible=false
+//            menuScene.visible=true
 
-        onGameScenePressed1:{
-            gameWindow.state="choose"
-            gameScene.visible=false
+//           chooseScene.visible=false
+//        }
+//    }
+
+    MenuScene{
+        id:menuScene
+        onGameScenePressed: {
+            gameScene.playGameMusic()
+            gameWindow.state="game"
             menuScene.visible=false
-            chooseScene.visible=true
+            gameScene.visible=true
+            //chooseScene.visible=false
+
         }
+
+//        onGameScenePressed1:{
+//            gameWindow.state="choose"
+//            gameScene.visible=false
+//            menuScene.visible=false
+//            chooseScene.visible=true
+//        }
     }
 
     state:"menu"
